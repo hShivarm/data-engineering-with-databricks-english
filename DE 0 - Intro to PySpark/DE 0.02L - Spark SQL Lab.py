@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md-sandbox
-# MAGIC 
+# MAGIC
 # MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
 # MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
 # MAGIC </div>
@@ -9,14 +9,14 @@
 
 # MAGIC %md
 # MAGIC # Spark SQL Lab
-# MAGIC 
+# MAGIC
 # MAGIC ##### Tasks
 # MAGIC 1. Create a DataFrame from the **`events`** table
 # MAGIC 1. Display the DataFrame and inspect its schema
 # MAGIC 1. Apply transformations to filter and sort **`macOS`** events
 # MAGIC 1. Count results and take the first 5 rows
 # MAGIC 1. Create the same DataFrame using a SQL query
-# MAGIC 
+# MAGIC
 # MAGIC ##### Methods
 # MAGIC - <a href="https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/spark_session.html" target="_blank">SparkSession</a>: **`sql`**, **`table`**
 # MAGIC - <a href="https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/dataframe.html" target="_blank">DataFrame</a> transformations: **`select`**, **`where`**, **`orderBy`**
@@ -34,8 +34,11 @@
 
 # COMMAND ----------
 
-# TODO
-events_df = FILL_IN
+import pyspark
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
+df = spark.sql("select * from default.furniture_price_prediction limit 5")
+#df = spark.createDataFrame()
 
 # COMMAND ----------
 
@@ -44,22 +47,29 @@ events_df = FILL_IN
 
 # COMMAND ----------
 
+type(df)
+
+# COMMAND ----------
+
+df.show()
+
+# COMMAND ----------
+
 # TODO
+df.select(df.type).show()
 
 # COMMAND ----------
 
 # MAGIC %md ### 3. Apply transformations to filter and sort **`macOS`** events
 # MAGIC - Filter for rows where **`device`** is **`macOS`**
 # MAGIC - Sort rows by **`event_timestamp`**
-# MAGIC 
+# MAGIC
 # MAGIC <img src="https://files.training.databricks.com/images/icon_hint_32.png" alt="Hint"> Use single and double quotes in your filter SQL expression
 
 # COMMAND ----------
 
 # TODO
-mac_df = (events_df
-          .FILL_IN
-         )
+df.select(df.type).show()
 
 # COMMAND ----------
 
@@ -69,8 +79,7 @@ mac_df = (events_df
 # COMMAND ----------
 
 # TODO
-num_rows = mac_df.FILL_IN
-rows = mac_df.FILL_IN
+df.select(df.price<1000).orderBy(df.price.desc()).show()
 
 # COMMAND ----------
 
@@ -115,7 +124,7 @@ print("All test pass")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 
+# MAGIC
 # MAGIC Run the following cell to delete the tables and files associated with this lesson.
 
 # COMMAND ----------
